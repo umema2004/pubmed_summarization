@@ -21,6 +21,12 @@ pip install -r requirements.txt
 ## Run the Application:
 python app.py
 
+Login with the username and passwords from the users.csv file
+Paste any article you would like to summarize and select length
+click 'Summarize'
+click 'save' if you wish to save the save the summary in a text file
+have fun
+
 ## Model Selection and Fine-tuning
 ### Extractive Summarization: Select sentences from the original text based on importance scores (e.g., word frequency, TF-IDF).
 ### Implement extractive summarization using NLTK for tokenization, stopwords removal, and sentence scoring.
