@@ -46,3 +46,6 @@ User Authentication: Manage user sessions securely with Flask sessions and ensur
 Customization: Allow users to select the style or length of the summary (brief, detailed).
 File Saving: Enable users to save the original article and its summary as text files for future reference.
 
+I attempted to perform the functionality using GenAI but due to version and billing issues, could not go theough with it.
+I also attempted to generate the image from text using Imagen3 and visualization in html but could not succeed.
+
