@@ -26,7 +26,7 @@ pip install -r requirements.txt
 python app.py
 
 Login with the username and passwords from the users.csv file
-Paste any article you would like to summarize and select length
+Paste any article you would like to summarize OR select a text file containing an article and select length of summary
 click 'Summarize'
 click 'save' if you wish to save the save the summary in a text file
 have fun
