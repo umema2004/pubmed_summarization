@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PubMed Article Summarizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            color: #333333;
+            text-align: center;
+        }
+        p {
+            color: #555555;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        select, input[type="file"], input[type="submit"], button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+        }
+        input[type="submit"], button {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover, button:hover {
+            background-color: #0056b3;
+        }
+        h2 {
+            color: #333333;
+            margin-top: 20px;
+        }
+        .message {
+            color: green;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .generated-image {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PubMed Article Summarizer</h1>
+        <p>Welcome, {{ session['username'] }}! <a href="/logout">Logout</a></p>
+
+        <!-- Form for text input or file upload -->
+        <form action="/" method="post" enctype="multipart/form-data">
+            <textarea name="article" rows="10" placeholder="Paste your PubMed article here..."></textarea><br>
+            <!-- Dropdown for summary style -->
+            <select name="summary_style">
+                <option value="brief">Brief (3 sentences)</option>
+                <option value="detailed">Detailed (5 sentences)</option>
+            </select><br>
+            <input type="file" name="file"><br>
+            <input type="submit" value="Summarize">
+        </form>
+
+        <!-- Display the results -->
+        {% if original_text %}
+            <h2>Original Text:</h2>
+            <p>{{ original_text }}</p>
+            <h2>Summary:</h2>
+            <p>{{ summary_text }}</p>
+
+            <!-- Display generated image -->
+            <div class="generated-image">
+                {% if generated_image %}
+                    <img src="data:image/jpeg;base64,{{ generated_image }}" alt="Generated Image" style="max-width: 100%; height: auto;">
+                {% endif %}
+            </div>
+
+            <!-- Form for saving the summary and the original text to a file -->
+            <form action="/save" method="post">
+                <input type="hidden" name="original_text" value="{{ original_text }}">
+                <input type="hidden" name="summary_text" value="{{ summary_text }}">
+                <button type="submit">Save Summary</button>
+            </form>
+        {% endif %}
+
+        <!-- Optional: Display a message on successful save -->
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
