@@ -13,7 +13,7 @@ templates: html files for frontend
 Clone repository:
 git clone https://github.com/umema2004/pubmed_summarization
 
-cd pubmed-article-summarizer
+cd pubmed_summarization
 
 ## Install Dependencies:
 pip install -r requirements.txt
