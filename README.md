@@ -12,6 +12,7 @@ templates: html files for frontend
 ## Setup Instructions
 Clone repository:
 git clone https://github.com/umema2004/pubmed_summarization
+
 cd pubmed-article-summarizer
 
 ## Install Dependencies:
