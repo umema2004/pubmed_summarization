@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>PubMed Article Summarizer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer with Metrics Visualization</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,11 +23,11 @@
             max-width: 800px;
             width: 100%;
         }
-        h1 {
+        h1, h2 {
             color: #333333;
             text-align: center;
         }
-        p {
+        p, label {
             color: #555555;
         }
         a {
@@ -36,25 +38,16 @@
             text-decoration: underline;
         }
         form {
+            margin-top: 20px;
             margin-bottom: 20px;
         }
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            resize: vertical;
-        }
-        select, input[type="file"], input[type="submit"], button {
-            display: block;
+        textarea, select, input[type="file"], input[type="submit"], button {
             width: 100%;
             padding: 10px;
             margin-top: 10px;
             border: 1px solid #cccccc;
             border-radius: 4px;
             box-sizing: border-box;
-            background-color: #f9f9f9;
         }
         input[type="submit"], button {
             background-color: #007BFF;
@@ -64,35 +57,39 @@
         input[type="submit"]:hover, button:hover {
             background-color: #0056b3;
         }
-        h2 {
-            color: #333333;
-            margin-top: 20px;
+        .error, .message {
+            color: red;
+            text-align: center;
         }
         .message {
             color: green;
-            margin-top: 20px;
-            text-align: center;
         }
-        .generated-image {
+        img {
+            max-width: 100%;
+            height: auto;
             margin-top: 20px;
-            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>PubMed Article Summarizer</h1>
+        <h1>Text Summarizer</h1>
         <p>Welcome, {{ session['username'] }}! <a href="/logout">Logout</a></p>
+
+        <!-- Display errors if any -->
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
 
         <!-- Form for text input or file upload -->
         <form action="/" method="post" enctype="multipart/form-data">
-            <textarea name="article" rows="10" placeholder="Paste your PubMed article here..."></textarea><br>
-            <!-- Dropdown for summary style -->
+            <label for="article">Paste your article here or upload a file:</label>
+            <textarea id="article" name="article" rows="10" placeholder="Paste your article here..."></textarea>
             <select name="summary_style">
                 <option value="brief">Brief (3 sentences)</option>
                 <option value="detailed">Detailed (5 sentences)</option>
-            </select><br>
-            <input type="file" name="file"><br>
+            </select>
+            <input type="file" name="file" accept=".txt"><br>
             <input type="submit" value="Summarize">
         </form>
 
@@ -102,13 +99,12 @@
             <p>{{ original_text }}</p>
             <h2>Summary:</h2>
             <p>{{ summary_text }}</p>
-
+            
             <!-- Display generated image -->
-            <div class="generated-image">
-                {% if generated_image %}
-                    <img src="data:image/jpeg;base64,{{ generated_image }}" alt="Generated Image" style="max-width: 100%; height: auto;">
-                {% endif %}
-            </div>
+            <img src="{{ generated_image }}" alt="Generated Image">
+
+            <!-- Display bar graph for quality metrics -->
+            <img src="{{ graph_url }}" alt="Summary Quality Metrics">
 
             <!-- Form for saving the summary and the original text to a file -->
             <form action="/save" method="post">
@@ -118,7 +114,7 @@
             </form>
         {% endif %}
 
-        <!-- Optional: Display a message on successful save -->
+        <!-- Display a message on successful save -->
         {% if message %}
             <p class="message">{{ message }}</p>
         {% endif %}
