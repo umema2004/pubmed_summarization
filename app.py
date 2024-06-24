@@ -10,6 +10,7 @@ from PIL import Image
 import os
 import matplotlib.pyplot as plt
 import numpy as np
+import time
 
 import nltk
 nltk.download('punkt')
