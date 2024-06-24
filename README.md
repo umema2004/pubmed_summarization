@@ -6,7 +6,7 @@ This documentation provides a comprehensive guide to developing a web applicatio
 
 ## Setup Instructions
 Clone repository:
-git clone <repository_url>
+git clone https://github.com/umema2004/pubmed_summarization
 cd pubmed-article-summarizer
 
 ## Install Dependencies:
