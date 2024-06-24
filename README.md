@@ -4,6 +4,11 @@
 ## Overview
 This documentation provides a comprehensive guide to developing a web application that summarizes PubMed articles. The application employs Flask as the backend framework and includes functionalities for user authentication, text preprocessing, extractive summarization, and file saving. This guide covers data exploration, model selection (for summarization), fine-tuning (optional), and web application development.
 
+### Breakdown of files
+app.py: implementation of the web application
+summarize.py: summarization performed on the PubMed Summarization dataset from HuggingFace
+templates: html files for frontend
+
 ## Setup Instructions
 Clone repository:
 git clone https://github.com/umema2004/pubmed_summarization
