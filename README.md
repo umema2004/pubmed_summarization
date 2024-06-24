@@ -13,6 +13,8 @@ templates folder: html files for frontend
 
 static folder: static items (images, etc)
 
+file.txt: a sample file containing an article
+
 ## Setup Instructions
 Clone repository:
 git clone https://github.com/umema2004/pubmed_summarization
