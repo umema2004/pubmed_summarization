@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for, session
 import csv
 from nltk import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
 from collections import Counter
 import string
 import re
@@ -11,6 +12,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 import time
+import contractions
 
 import nltk
 nltk.download('punkt')
@@ -46,11 +48,15 @@ def create_metrics_bar_graph(metrics, labels, filename='metrics_bar.png'):
     return url_for('static', filename=filename)
 
 def preprocess(text):
+    text = contractions.fix(text)   
     text = text.lower()
+    text = re.sub(r'[^a-zA-Z\s]', '', text)
     text = ' '.join(text.split())
     tokens = word_tokenize(text)
     stop_words = set(stopwords.words('english') + list(string.punctuation))
     tokens = [word for word in tokens if word not in stop_words and not re.search(r'\d', word)]
+    stemmer = PorterStemmer()
+    tokens = [stemmer.stem(word) for word in tokens]
     return tokens
 
 def extractive_summarization(article, summary_style='brief'):
