@@ -15,6 +15,8 @@ static folder: static items (images, etc)
 
 file.txt: a sample file containing an article
 
+using-genAI: folder containing app.py which is the application deployment and templates folder containing html files
+
 ## Setup Instructions
 Clone repository:
 git clone https://github.com/umema2004/pubmed_summarization
@@ -55,6 +57,24 @@ File Saving: Enable users to save the original article and its summary as text f
 Image generation (unsuccessful): I could not generate an image so you get 3 very cute cats.
 Metrics evaluation: A bar graph is generated based on evaluation metrics of quality of summary (precision, recall, F1 score)
 
-I attempted to perform the functionality using GenAI but due to version and billing issues, could not go theough with it.
-I also attempted to generate the image from text using Imagen3 and visualization in html but could not succeed.
+# Gen-AI:
+## Usage
+### Home Page (/):
 
+Displays a simple input form where users can enter paragraphs of text to summarize.
+### Summarize Endpoint (/summarize):
+
+Handles POST requests to summarize the provided paragraph using the OpenAI GPT-3 model (text-davinci-003).
+Returns the original paragraph and its summarized version to the user interface.
+## Functionality
+### Text Summarization:
+
+Uses OpenAI GPT-3 to generate concise summaries of scientific text based on the provided paragraph.
+Summaries are generated with a maximum of 100 tokens for brevity.
+### User Interface:
+
+Renders the input form and displays both the original paragraph and its summarized version after submission.
+
+# author:
+
+Umema Ashar | 22i-2036
