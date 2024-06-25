@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer with Metrics Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 800px;
+            width: 100%;
+        }
+        h1, h2 {
+            color: #333333;
+            text-align: center;
+        }
+        p, label {
+            color: #555555;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        form {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        textarea, select, input[type="file"], input[type="submit"], button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"], button {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover, button:hover {
+            background-color: #0056b3;
+        }
+        .error, .message {
+            color: red;
+            text-align: center;
+        }
+        .message {
+            color: green;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text Summarizer</h1>
+        <p>Welcome, {{ session['username'] }}! <a href="/logout">Logout</a></p>
+
+        <!-- Display errors if any -->
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <!-- Form for text input or file upload -->
+        <form action="/" method="post" enctype="multipart/form-data">
+            <label for="article">Paste your article here or upload a file:</label>
+            <textarea id="article" name="article" rows="10" placeholder="Paste your article here..."></textarea>
+            <select name="summary_style">
+                <option value="brief">Brief (3 sentences)</option>
+                <option value="detailed">Detailed (5 sentences)</option>
+            </select>
+            <input type="file" name="file" accept=".txt"><br>
+            <input type="submit" value="Summarize">
+        </form>
+
+        <!-- Display the results -->
+        {% if original_text %}
+            <h2>Original Text:</h2>
+            <p>{{ original_text }}</p>
+            <h2>Summary:</h2>
+            <p>{{ summary_text }}</p>
+            
+            <!-- Display generated image -->
+            <img src="{{ generated_image }}" alt="Generated Image">
+
+            <!-- Display bar graph for quality metrics -->
+            <img src="{{ graph_url }}" alt="Summary Quality Metrics">
+
+            <!-- Form for saving the summary and the original text to a file -->
+            <form action="/save" method="post">
+                <input type="hidden" name="original_text" value="{{ original_text }}">
+                <input type="hidden" name="summary_text" value="{{ summary_text }}">
+                <button type="submit">Save Summary</button>
+            </form>
+        {% endif %}
+
+        <!-- Display a message on successful save -->
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
