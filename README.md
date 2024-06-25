@@ -44,7 +44,7 @@ Flask is used for backend development due to its simplicity and flexibility in h
 
 ### Functionality:
 User Authentication: Implement login and logout functionalities using sessions and a simple CSV-based user database.
-Text Preprocessing: Clean and preprocess input PubMed articles to remove stopwords and non-alphanumeric characters.
+Text Preprocessing: Clean and preprocess input PubMed articles. expand contractions, convert to lower case, remove special characters, remove extra spaces, tokenize, remove stop words, lemmetization
 Summarization: Implement extractive summarization based on word frequency or integrate generative models for abstractive summarization (optional).
 File Handling: Allow users to input text directly or upload a file containing PubMed article data.
 Output: Display both the original article and its summarized version on the web interface. Generate an image based on the text input and a bar graph visualizing quality metrics of the summary.
