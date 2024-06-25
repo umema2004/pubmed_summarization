@@ -23,6 +23,8 @@ git clone https://github.com/umema2004/pubmed_summarization
 
 cd pubmed_summarization
 
+cd summarizer-genai
+
 ## Install Dependencies:
 pip install -r requirements.txt
 
